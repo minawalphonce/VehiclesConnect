@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.IO;
 
 namespace Alten.VehiclesConnect.Data
 {

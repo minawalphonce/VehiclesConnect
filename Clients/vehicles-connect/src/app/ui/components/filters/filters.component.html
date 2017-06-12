@@ -1,0 +1,32 @@
+<div class="widget flat">
+  <div class="widget-body">
+    <div class="row">
+      <div class="col-xs-3">
+        <div class="form-group">
+          <span class="control-label">Customers</span>
+          <select class="form-control">
+            <option *ngFor="let item of customers" [value]="item.id">
+              {{item.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <div class="form-group">
+          <span>Status</span>
+          <select class="form-control">
+          <option>All</option>
+          <option>Disconnected</option>
+          <option>Connected</option>
+        </select>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <button class="btn btn-primary"  type="button">
+        Search
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+      </div>
+    </div>
+  </div>
+</div>

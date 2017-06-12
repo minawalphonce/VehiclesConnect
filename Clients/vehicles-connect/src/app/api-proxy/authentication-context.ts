@@ -15,7 +15,9 @@ export class AuthenticationContext {
     }
 
     get accessToken(): string {
-        return this.identity$.value.access_token;
+        if (this.identity$.value)
+            return this.identity$.value.access_token;
+        return null;
     }
     get isAuthenticated(): boolean {
         return this.accessToken != null;

@@ -1,0 +1,27 @@
+<div class="widget">
+  <div class="widget-header bordered-bottom bordered-themesecondary">
+    <i class="widget-icon glyphicon glyphicon-stats"></i>
+    <span class="widget-caption">Vehicles Status</span>
+  </div>
+  <div class="widget-body">
+    <div class="vehicules-container">
+      <ul class="vehicules-list">
+        <li *ngFor="let vehicle of vehicles; trackBy:track" class="vehicules-item">
+          <div class="row">
+            <div class="info col-lg-6 col-sm-12">
+              <span class="vin">{{vehicle.vin}} - {{vehicle.registrationNumber}}</span>
+              <span class="at">at</span>
+              <span class="reg-number">{{vehicle.customer}}</span>
+            </div>
+            <div class="state connected" *ngIf="vehicle.isConnected">
+              <i class="glyphicon glyphicon-ok"></i>
+            </div>
+            <div class="state disconnected" *ngIf="!vehicle.isConnected">
+              <i class="glyphicon glyphicon-remove"></i>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

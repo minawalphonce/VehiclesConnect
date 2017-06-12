@@ -2,9 +2,7 @@
 using Alten.VehiclesConnect.Web.Models;
 using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data.Entity;
 
 namespace Alten.VehiclesConnect.Web
 {
@@ -14,7 +12,11 @@ namespace Alten.VehiclesConnect.Web
         {
             Mapper.Initialize(config =>
             {
-                config.CreateMap<Vehicle, VehicleDto>();
+                config.CreateMap<Vehicle, VehicleDto>()
+                    .ForMember(v => v.Customer, cfg => cfg.MapFrom(v => v.Customer.Name))
+                    .ForMember(v => v.IsConnected, cfg => cfg.MapFrom(v => DbFunctions.DiffMinutes(v.LastUpdatedStatus, DateTime.UtcNow) < 1));
+
+                config.CreateMap<Customer, CustomerDto>();
             });
         }
     }

@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { AuthenticationContext } from './authentication-context';
 import { OAuthService } from './services/oauth.service';
 import { VehiclesService } from './services/vehicles.service';
+import { CustomesService } from './services/customers.service';
 
 @NgModule({
     imports: [HttpModule],
@@ -11,6 +12,7 @@ import { VehiclesService } from './services/vehicles.service';
     providers: [
         OAuthService,
         VehiclesService,
+        CustomesService,
         AuthenticationContext
     ],
 })

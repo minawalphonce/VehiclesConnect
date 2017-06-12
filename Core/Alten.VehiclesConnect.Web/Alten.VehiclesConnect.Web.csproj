@@ -148,7 +148,9 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\AutomapperConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
+    <Compile Include="Models\CustomerDto.cs" />
     <Compile Include="Models\FindVehicleFilter.cs" />
     <Compile Include="Models\VehicleDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

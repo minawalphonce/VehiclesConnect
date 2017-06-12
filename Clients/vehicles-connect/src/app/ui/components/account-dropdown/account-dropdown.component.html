@@ -1,0 +1,21 @@
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown" [class.open]="open">
+    <a href="javascript:void(0)" class="dropdown-toggle" (click)="open = !open">
+            <img src="http://127.0.0.1:8080/angular/assets/img/avatars/John-Smith.jpg" width="29" height="29" />
+            Username
+          </a>
+    <ul class="dropdown-menu">
+      <li>
+        <div class="avatar-area">
+          <img src="http://127.0.0.1:8080/angular/assets/img/avatars/John-Smith.jpg" class="avatar" />
+        </div>
+      </li>
+      <li class="dropdown-footer">
+        <a href="#">
+      Sign Out
+      <i class="glyphicon glyphicon-log-out"></i>
+    </a>
+      </li>
+    </ul>
+  </li>
+</ul>

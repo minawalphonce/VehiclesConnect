@@ -11,5 +11,7 @@ namespace Alten.VehiclesConnect.Data.Entities
         public string Name { set; get; }
 
         public string Address { set; get; }
+
+        public virtual ICollection<Vehicle> Vehicles { set; get; }
     }
 }

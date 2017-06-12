@@ -6,10 +6,9 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "../../core/Alten.VehiclesConnect.Web/www",
       "assets": [
-        "assets",
-        "favicon.ico"
+        "assets"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -19,7 +18,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "vc",
       "styles": [
-        "styles.scss"
+        "theme/styles.less"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -51,7 +50,7 @@
     }
   },
   "defaults": {
-    "styleExt": "scss",
+    "styleExt": "less",
     "component": {}
   }
 }

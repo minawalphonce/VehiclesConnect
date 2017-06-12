@@ -7,5 +7,6 @@ namespace Alten.VehiclesConnect.Web.Models
 {
     public class VehicleDto
     {
+        public int Id { set; get; }
     }
 }

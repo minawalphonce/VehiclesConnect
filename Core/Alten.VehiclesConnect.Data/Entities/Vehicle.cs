@@ -10,6 +10,7 @@ namespace Alten.VehiclesConnect.Data.Entities
     {
         public string Vin { set; get; }
         public string RegistrationNumber { set; get; }
+        public DateTime? LastUpdatedStatus { set; get; }
         public int CustomerId { set; get; }
         public virtual Customer Customer { set; get; }
     }

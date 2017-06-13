@@ -8,7 +8,6 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AccountDropdownComponent } from './components/account-dropdown/account-dropdown.component';
-import { DashboardChartComponent } from './components/dashboard-chart/dashboard-chart.component';
 import { ListComponent } from './components/list/list.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { PingComponent } from './pages/ping/ping.component';
@@ -40,11 +39,10 @@ const routes: Routes = [
     HeaderComponent,
     NavbarComponent,
     AccountDropdownComponent,
-    DashboardChartComponent,
     FiltersComponent,
     PingComponent,
     PingListComponent,
-    LogsComponent,
+    LogsComponent
   ],
   exports: [RouterModule]
 })

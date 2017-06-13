@@ -1,5 +1,4 @@
-export interface CustomerDto
-{
-    id : number;
-    name:string;
+export interface CustomerDto {
+    id: number;
+    name: string;
 }

@@ -14,7 +14,7 @@ namespace Alten.VehiclesConnect.Web
             {
                 config.CreateMap<Vehicle, VehicleDto>()
                     .ForMember(v => v.Customer, cfg => cfg.MapFrom(v => v.Customer.Name))
-                    .ForMember(v => v.IsConnected, cfg => cfg.MapFrom(v => DbFunctions.DiffMinutes(v.LastUpdatedStatus, DateTime.UtcNow) < 1));
+                    .ForMember(v => v.IsConnected, cfg => cfg.MapFrom(v => DbFunctions.DiffSeconds(v.LastUpdatedStatus, DateTime.UtcNow) < 60));
 
                 config.CreateMap<Customer, CustomerDto>();
             });

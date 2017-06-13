@@ -2,7 +2,6 @@
 
 .vehicules-container {
     position: relative;
-    padding: 25px 25px;
     background-color: #f5f5f5;
 
     .vehicules-list {
@@ -12,7 +11,8 @@
 
         .vehicules-item {
             position: relative;
-            background-color: #fff;
+            //background-color: #fff;
+            background-color:lighten(@brand-warning,30%);
             box-shadow : 0 0 3px rgba(0, 0, 0, 0.2);
             border-radius :3px;
             margin-bottom: 8px;
@@ -23,12 +23,22 @@
                 margin-bottom: 0;
             }
 
+            &.connected {
+                background-color:lighten(@brand-success,30%);
+            }
+
             .info {
-                height: 50px;
+                height: 60px;
                 padding: 10px;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
+                
+                .avatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 3px;
+                }
 
                 .vin {
                     margin-left: 5px;
@@ -48,64 +58,20 @@
 
             }
 
-            .state {
-                position: absolute;
-                top: 13px;
-                right: -12px;
-                height: 24px;
-                width: 24px;
-                border-radius:50%;
-                background-color: #e5e5e5;
-                text-align: center;
-                box-shadow:0 0 3px rgba(0, 0, 0, 0.2);
-                border: 2px solid #fff;
-                
-                i {
-                    font-size: 13px;
-                    color: #fff;
-                    line-height: 20px;
-                }
-
-                &.connected {
-                     background-color:@brand-success;
-                }
-                &.disconnected {
-                     background-color:@brand-warning;
-                }
+            .status {
+                line-height: 40px;
+                height: 60px;
+                padding: 10px;
             }
 
             .divider {
                 position: absolute;
                 top: 0;
                 left: 0;
-                height: 50px;
+                height: 60px;
                 width: 1px;
                 background-color: #eee;
                 display: inline-block;
-            }
-        }
-    }
-}
-
-@media (max-width: 1200px) {
-    .vehicules-container {
-        .vehicules-list {
-            .vehicules-item {
-                .ticket-user {
-                    border-bottom: 1px solid #eee;
-                }
-            }
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    .vehicules-container {
-        .vehicules-list {
-            .vehicules-item {
-                .ticket-time {
-                    border-bottom: 1px solid #eee;
-                }
             }
         }
     }

@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { VehicleDto, CustomerDto, VehiclesService, CustomesService } from '../../../api-proxy';
 
@@ -8,27 +8,29 @@ import { VehicleDto, CustomerDto, VehiclesService, CustomesService } from '../..
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.less']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent {
   vehicles$: Observable<VehicleDto[]>;
   customers$: Observable<CustomerDto[]>;
-  intervalId;
+  filter$: BehaviorSubject<any>;
 
   constructor(
     private vehiclesService: VehiclesService,
     private customesService: CustomesService) {
 
-    this.vehicles$ = this.vehiclesService.findVehicles({});
     this.customers$ = this.customesService.GetCustomers();
+    this.filter$ = new BehaviorSubject({
+      showConnectedOnly: null,
+      coustomerId: null,
+    });
 
-    this.intervalId = setInterval(() => {
-      this.vehicles$ = this.vehiclesService.findVehicles({});
-    }, 1000 * 30);
+    this.vehicles$ = Observable.timer(0, 1000 * 5)
+      .combineLatest(this.filter$)
+      .switchMap(([, filter]) => {
+        return this.vehiclesService.findVehicles(filter);
+      });
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.intervalId);
+  onFilter(filter) {
+    this.filter$.next(filter);
   }
-  ngOnInit() {
-  }
-
 }

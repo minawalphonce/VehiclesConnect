@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -11,6 +11,9 @@ import { AccountDropdownComponent } from './components/account-dropdown/account-
 import { DashboardChartComponent } from './components/dashboard-chart/dashboard-chart.component';
 import { ListComponent } from './components/list/list.component';
 import { FiltersComponent } from './components/filters/filters.component';
+import { PingComponent } from './pages/ping/ping.component';
+import { PingListComponent } from './components/ping-list/ping-list.component';
+import { LogsComponent } from './components/logs/logs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -18,7 +21,7 @@ const routes: Routes = [
     path : '',
     component: LayoutComponent, children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'login', component: LoginComponent },
+      { path: 'ping', component: PingComponent },
     ]
   }
 ];
@@ -27,18 +30,21 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
   declarations: [
     DashboardComponent,
     ListComponent,
-    LoginComponent,
     LayoutComponent,
     HeaderComponent,
     NavbarComponent,
     AccountDropdownComponent,
     DashboardChartComponent,
     FiltersComponent,
+    PingComponent,
+    PingListComponent,
+    LogsComponent,
   ],
   exports: [RouterModule]
 })

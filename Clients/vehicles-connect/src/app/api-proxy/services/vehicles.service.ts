@@ -18,7 +18,7 @@ export class VehiclesService {
         const queryString = new URLSearchParams();
         for (const prop in filter) {
             if (filter[prop]) {
-                queryString[prop] = filter[prop];
+                queryString.set(prop, filter[prop]);
             }
         }
 

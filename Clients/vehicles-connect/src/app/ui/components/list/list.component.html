@@ -6,18 +6,19 @@
   <div class="widget-body">
     <div class="vehicules-container">
       <ul class="vehicules-list">
-        <li *ngFor="let vehicle of vehicles; trackBy:track" class="vehicules-item">
+        <li *ngFor="let vehicle of vehicles; trackBy:track" class="vehicules-item" [class.connected]="vehicle.isConnected">
           <div class="row">
-            <div class="info col-lg-6 col-sm-12">
+            <div class="info col-lg-10 col-sm-12">
+              <img src="assets/1497295058_LorryGreen.png" class="avatar" *ngIf="vehicle.isConnected" />
+              <img src="assets/1497295671_TruckYellow.png" class="avatar" *ngIf="!vehicle.isConnected" />
               <span class="vin">{{vehicle.vin}} - {{vehicle.registrationNumber}}</span>
               <span class="at">at</span>
               <span class="reg-number">{{vehicle.customer}}</span>
             </div>
-            <div class="state connected" *ngIf="vehicle.isConnected">
-              <i class="glyphicon glyphicon-ok"></i>
-            </div>
-            <div class="state disconnected" *ngIf="!vehicle.isConnected">
-              <i class="glyphicon glyphicon-remove"></i>
+            <div class="status col-lg-2 col-sm-6 col-xs-12">
+              <div class="divider hidden-md hidden-sm hidden-xs"></div>
+              <span *ngIf="vehicle.isConnected">Connected</span>
+              <span *ngIf="!vehicle.isConnected">Disconnected</span>
             </div>
           </div>
         </li>

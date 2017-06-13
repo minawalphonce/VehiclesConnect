@@ -1,7 +1,11 @@
 <div class="page-body">
-  <vc-filters [customers]="customers$ | async" ></vc-filters>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-md-12 col-lg-10">
+      <vc-filters [customers]="customers$ | async" (filter)="onFilter($event)" ></vc-filters>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-lg-10">
       <vc-list [vehicles]="vehicles$ | async">
       </vc-list>
     </div>

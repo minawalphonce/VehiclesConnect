@@ -1,0 +1,45 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Vehicle Id
+      </th>
+      <th>
+        Vin
+      </th>
+      <th>
+        Registration Number
+      </th>
+      <th>
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of list">
+      <td>
+        {{item.id}}
+      </td>
+      <td>
+        {{item.vin}}
+      </td>
+      <td>
+        {{item.registrationNumber}}
+      </td>
+      <td>
+        <a class="btn btn-primary" (click)="pingOnceClicked(item)">
+          Ping
+        </a>
+      </td>
+      <td>
+        <a class="btn btn-default" (click)="startPingingClicked(item)">
+          <i class="glyphicon glyphicon-play"></i>
+        </a>
+        <a class="btn btn-default" (click)="stopPingingClicked(item)">
+          <i class="glyphicon glyphicon-stop"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,11 @@
+<div class="page-body">
+  <div class="widget">
+    <div class="widget-body">
+      <vc-ping-list [list]="vericles$ | async" (ping)="pingOnce($event)" (startPings)="startPinging($event)" (stopPings)="stopPinging($event)" >
+      </vc-ping-list>
+    </div>
+  </div>
+  <hr />
+  <vc-logs [list]="logs">
+  </vc-logs>
+</div>

@@ -32,14 +32,6 @@ namespace Alten.VehiclesConnect.Web.Controllers
             return Ok(_vehicleRepository.Select<VehicleDto>(new ByCustomerIdAndStatus(filter.CustomerId, filter.ShowConnectedOnly)));
         }
 
-        [Route("{id}")]
-        [HttpGet]
-        [ResponseType(typeof(VehicleDto))]
-        public IHttpActionResult FindVehicleById(int id)
-        {
-            return Ok();
-        }
-
         [Route("{id}/ping")]
         [HttpPut]
         [ResponseType(typeof(void))]

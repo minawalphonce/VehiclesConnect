@@ -62,8 +62,9 @@
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Repositories\IUnitOfWorkFactory.cs" />
+    <Compile Include="Repositories\ListRepository.cs" />
     <Compile Include="Repositories\Query.cs" />
-    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\DbSetRepository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="Repositories\UnitOfWorkFactory.cs" />
   </ItemGroup>

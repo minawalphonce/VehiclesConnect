@@ -7,32 +7,28 @@
 
     using AutoMapper.QueryableExtensions;
 
-    public class Repository<TEntity> : IRepository<TEntity>
+    public class DbSetRepository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        #region Fields
-
-        private readonly DbContext _dbContext;
-
-        #endregion Fields
-
         #region Constructors
 
-        public Repository(DbContext dbContext)
+        public DbSetRepository(DbContext dbContext) : this(dbContext.Set<TEntity>())
         {
-            _dbContext = dbContext;
+
+        }
+
+        public DbSetRepository(IDbSet<TEntity> dbSet)
+        {
+            this.DbSet = dbSet;
         }
 
         #endregion Constructors
 
         #region Properties
 
-        private DbSet<TEntity> DbSet
+        private IDbSet<TEntity> DbSet
         {
-            get
-            {
-                return _dbContext.Set<TEntity>();
-            }
+            set;get;
         }
 
         #endregion Properties
@@ -41,14 +37,18 @@
 
         #region Delete 
 
-        public void Delete(Query<TEntity> query)
+        public void Delete(TEntity entity)
         {
-            DbSet.RemoveRange(DbSet.Where(query.Expression));
+            DbSet.Remove(entity);
         }
 
-        public void Delete<TKey>(TKey id)
+        public void Delete(Query<TEntity> query)
         {
-            DbSet.Remove(DbSet.Find(id));
+            foreach(var entity in this.DbSet.Where(query.Expression))
+            {
+                DbSet.Remove(entity);
+            }
+            
         }
 
         #endregion 
@@ -57,7 +57,8 @@
 
         public void Insert(IEnumerable<TEntity> entities)
         {
-            DbSet.AddRange(entities);
+            foreach (var entity in entities)
+                DbSet.Add(entity);
         }
 
         public void Insert(TEntity entity)
@@ -91,7 +92,7 @@
 
         private IQueryable<TEntity> SelectQuery(Query<TEntity> where, int pageSize, int pageIndex, string sortExression)
         {
-            IQueryable<TEntity> query = this.DbSet;
+            IQueryable<TEntity> query = this.DbSet.AsQueryable();
             if (where != null)
                 query = query.Where(where.Expression);
             if (sortExression != null)

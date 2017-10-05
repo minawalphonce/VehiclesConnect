@@ -29,7 +29,8 @@ namespace Alten.VehiclesConnect.Web.Controllers
             if (filter == null)
                 filter = new FindVehicleFilter();
 
-            return Ok(_vehicleRepository.Select<VehicleDto>(new ByCustomerIdAndStatus(filter.CustomerId, filter.ShowConnectedOnly)));
+            var x = _vehicleRepository.Select<VehicleDto>(new ByCustomerIdAndStatus(filter.CustomerId, filter.ShowConnectedOnly));
+            return Ok(x);
         }
 
         [Route("{id}/ping")]

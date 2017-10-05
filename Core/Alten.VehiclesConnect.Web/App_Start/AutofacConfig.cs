@@ -17,7 +17,7 @@ namespace Alten.VehiclesConnect.Web
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterApiControllers(typeof(AutofacConfig).Assembly);
 
-            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerRequest();
+            builder.RegisterGeneric(typeof(DbSetRepository<>)).As(typeof(IRepository<>)).UsingConstructor(typeof(DbContext)).InstancePerRequest();
             builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>().InstancePerRequest();
             builder.RegisterType<DatabaseContext>().As<DbContext>().InstancePerRequest();
 

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alten.VehiclesConnect.Data"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alten.VehiclesConnect.Utilities", "Core\Alten.VehiclesConnect.Utilities\Alten.VehiclesConnect.Utilities.csproj", "{49DBFEC3-E975-4082-947C-9E9CB12FA03B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alten.VehiclesConnect.Web.Tests", "Tests\Alten.VehiclesConnect.Web.Tests\Alten.VehiclesConnect.Web.Tests.csproj", "{CF1948E7-CCD3-461F-ABFA-65838714FDA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{49DBFEC3-E975-4082-947C-9E9CB12FA03B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49DBFEC3-E975-4082-947C-9E9CB12FA03B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49DBFEC3-E975-4082-947C-9E9CB12FA03B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF1948E7-CCD3-461F-ABFA-65838714FDA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF1948E7-CCD3-461F-ABFA-65838714FDA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF1948E7-CCD3-461F-ABFA-65838714FDA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF1948E7-CCD3-461F-ABFA-65838714FDA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,5 +47,6 @@ Global
 		{6F08E7CC-87E1-4FFA-BD77-795BA12FB9FE} = {18235098-226A-425B-A57F-E97B25A5D50F}
 		{7B46E1A2-9D99-4B92-93C9-8AB85D5BDAF2} = {18235098-226A-425B-A57F-E97B25A5D50F}
 		{49DBFEC3-E975-4082-947C-9E9CB12FA03B} = {18235098-226A-425B-A57F-E97B25A5D50F}
+		{CF1948E7-CCD3-461F-ABFA-65838714FDA2} = {503DD247-385B-487B-A392-E73C539BAF81}
 	EndGlobalSection
 EndGlobal

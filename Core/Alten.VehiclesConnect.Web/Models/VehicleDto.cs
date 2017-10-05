@@ -13,5 +13,11 @@ namespace Alten.VehiclesConnect.Web.Models
 
         public string Customer { set; get; }
         public bool? IsConnected { set; get; }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as VehicleDto;
+            return other.Id == this.Id;
+        }
     }
 }

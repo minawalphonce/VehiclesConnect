@@ -13,8 +13,8 @@ namespace Alten.VehiclesConnect.Web
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Vehicle, VehicleDto>()
-                    .ForMember(v => v.Customer, cfg => cfg.MapFrom(v => v.Customer.Name))
-                    .ForMember(v => v.IsConnected, cfg => cfg.MapFrom(v => DbFunctions.DiffSeconds(v.LastUpdatedStatus, DateTime.UtcNow) < 60));
+                    .ForMember(v => v.Customer, cfg => cfg.MapFrom(v => v.Customer.Name));
+                    //.ForMember(v => v.IsConnected, cfg => cfg.MapFrom(v => DbFunctions.DiffSeconds(v.LastUpdatedStatus, DateTime.UtcNow) < 60));
 
                 config.CreateMap<Customer, CustomerDto>();
             });

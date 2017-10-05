@@ -17,7 +17,7 @@ namespace Alten.VehiclesConnect.Utilities.Repositories
         void Insert(TEntity entity);
         void Insert(IEnumerable<TEntity> entity);
 
-        void Delete<TKey>(TKey id);
+        void Delete(TEntity entity);
         void Delete(Query<TEntity> query);
     }
 }

@@ -12,14 +12,15 @@
     {
         #region Constructors
 
-        public DbSetRepository(DbContext dbContext) : this(dbContext.Set<TEntity>())
+        public DbSetRepository(DbContext dbContext, bool doMapAfterExecute = false) : this(dbContext.Set<TEntity>(), doMapAfterExecute)
         {
 
         }
 
-        public DbSetRepository(IDbSet<TEntity> dbSet)
+        public DbSetRepository(IDbSet<TEntity> dbSet, bool doMapAfterExecute = false)
         {
             this.DbSet = dbSet;
+            this.DoMapAfterExecute = doMapAfterExecute;
         }
 
         #endregion Constructors
@@ -28,8 +29,9 @@
 
         private IDbSet<TEntity> DbSet
         {
-            set;get;
+            set; get;
         }
+        private bool DoMapAfterExecute { set; get; }
 
         #endregion Properties
 
@@ -44,11 +46,11 @@
 
         public void Delete(Query<TEntity> query)
         {
-            foreach(var entity in this.DbSet.Where(query.Expression))
+            foreach (var entity in this.DbSet.Where(query.Expression))
             {
                 DbSet.Remove(entity);
             }
-            
+
         }
 
         #endregion 
@@ -77,7 +79,10 @@
 
         public IEnumerable<TProjectedEntity> Select<TProjectedEntity>(Query<TEntity> query, int pageSize = int.MaxValue, int pageIndex = 0, string sortExression = null)
         {
-            return this.SelectQuery(query, pageSize, pageIndex, sortExression).ProjectTo<TProjectedEntity>().AsEnumerable();
+            var result = this.SelectQuery(query, pageSize, pageIndex, sortExression);
+            if (this.DoMapAfterExecute)
+                return AutoMapper.Mapper.Map<List<TProjectedEntity>>(result.ToList());
+            return result.ProjectTo<TProjectedEntity>().AsEnumerable();
         }
 
         public IEnumerable<TEntity> SelectAll(int pageSize = int.MaxValue, int pageIndex = 0, string sortExression = null)
@@ -87,7 +92,10 @@
 
         public IEnumerable<TProjectedEntity> SelectAll<TProjectedEntity>(int pageSize = int.MaxValue, int pageIndex = 0, string sortExression = null)
         {
-            return this.SelectQuery(null, pageSize, pageIndex, sortExression).ProjectTo<TProjectedEntity>().AsEnumerable();
+            var result = this.SelectQuery(null, pageSize, pageIndex, sortExression);
+            if (this.DoMapAfterExecute)
+                return AutoMapper.Mapper.Map<List<TProjectedEntity>>(result.ToList());
+            return result.ProjectTo<TProjectedEntity>().AsEnumerable();
         }
 
         private IQueryable<TEntity> SelectQuery(Query<TEntity> where, int pageSize, int pageIndex, string sortExression)

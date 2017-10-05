@@ -23,7 +23,7 @@
     {
         public VehiclesControllerTest()
         {
-            AutomapperConfig.Register();
+            InitializeAutoMapper();
             InitilizeTestData();
         }
 
@@ -98,44 +98,6 @@
             CollectionAssert.AreEqual(expectedValues, result.Content.ToList());
         }
 
-
-
-        [TestMethod]
-        public void FindVehicles_ShowConnectedOnly_ReturnVehiclesWithStatus()
-        {
-            // Arrange
-            this._vehiclesList[0].LastUpdatedStatus = DateTime.Now;
-            var expectedValues = Mapper.Map<List<VehicleDto>>(new List<Vehicle> { this._vehiclesList[0] });
-
-            // Act
-            var result = _controller.FindVehicles(new FindVehicleFilter()
-            {
-                ShowConnectedOnly = true
-            }) as OkNegotiatedContentResult<IEnumerable<VehicleDto>>;
-
-            // Assert
-            Assert.IsNotNull(result, "result is not OK 200");
-            CollectionAssert.AreEqual(expectedValues, result.Content.ToList());
-        }
-
-        [TestMethod]
-        public void FindVehicles_ShowDisconnectedOnly_ReturnVehiclesWithoutStatus()
-        {
-            // Arrange
-            this._vehiclesList[0].LastUpdatedStatus = DateTime.Now;
-            var expectedValues = Mapper.Map<List<VehicleDto>>(this._vehiclesList.Skip(1));
-
-            // Act
-            var result = _controller.FindVehicles(new FindVehicleFilter()
-            {
-                ShowConnectedOnly = false
-            }) as OkNegotiatedContentResult<IEnumerable<VehicleDto>>;
-
-            // Assert
-            Assert.IsNotNull(result, "result is not OK 200");
-            CollectionAssert.AreEqual(expectedValues, result.Content.ToList());
-        }
-
         [TestMethod]
         public void FindVehicles_ValidCustomId_ReturnAll()
         {
@@ -157,8 +119,16 @@
         [TestInitialize]
         public void InitializeSingleTest()
         {
+            var vehicles = this._vehiclesList.AsQueryable();
+
+            var vehiclesMock = new Mock<DbSet<Vehicle>>();
+            vehiclesMock.As<IQueryable<Vehicle>>().Setup(m => m.Provider).Returns(vehicles.Provider);
+            vehiclesMock.As<IQueryable<Vehicle>>().Setup(m => m.Expression).Returns(vehicles.Expression);
+            vehiclesMock.As<IQueryable<Vehicle>>().Setup(m => m.ElementType).Returns(vehicles.ElementType);
+            vehiclesMock.As<IQueryable<Vehicle>>().Setup(m => m.GetEnumerator()).Returns(vehicles.GetEnumerator());
+
             var moqUnitOfWorkFactory = new Mock<IUnitOfWorkFactory>();
-            var vehiclesRepository = new ListRepository<Vehicle>(this._vehiclesList);
+            var vehiclesRepository = new DbSetRepository<Vehicle>(vehiclesMock.Object, true);
             this._controller = new VehiclesController(vehiclesRepository, moqUnitOfWorkFactory.Object);
         }
 
@@ -173,16 +143,26 @@
 
             _vehiclesList = new List<Vehicle>
             {
-                new Vehicle() { Id = 1, Vin = "YS2R4X20005399401", RegistrationNumber = "ABC123", Customer = _customersList.ElementAt(0) },
-                new Vehicle() { Id = 2, Vin = "VLUR4X20009093588", RegistrationNumber = "DEF456", Customer = _customersList.ElementAt(0) },
-                new Vehicle() { Id = 3, Vin = "VLUR4X20009048066", RegistrationNumber = "GHI789", Customer = _customersList.ElementAt(0) },
-                new Vehicle() { Id = 4, Vin = "YS2R4X20005388011", RegistrationNumber = "JKL012", Customer = _customersList.ElementAt(1) },
-                new Vehicle() { Id = 5, Vin = "YS2R4X20005387949", RegistrationNumber = "MNO345", Customer = _customersList.ElementAt(1) },
-                new Vehicle() { Id = 6, Vin = "YS2R4X20005387765", RegistrationNumber = "PQR678", Customer = _customersList.ElementAt(2) },
-                new Vehicle() { Id = 7, Vin = "YS2R4X20005387055", RegistrationNumber = "STU901", Customer = _customersList.ElementAt(2) },
+                new Vehicle() { CustomerId = 1, Id = 1, Vin = "YS2R4X20005399401", RegistrationNumber = "ABC123", Customer = _customersList.ElementAt(0) },
+                new Vehicle() { CustomerId = 1, Id = 2, Vin = "VLUR4X20009093588", RegistrationNumber = "DEF456", Customer = _customersList.ElementAt(0) },
+                new Vehicle() { CustomerId = 1, Id = 3, Vin = "VLUR4X20009048066", RegistrationNumber = "GHI789", Customer = _customersList.ElementAt(0) },
+                new Vehicle() { CustomerId = 1, Id = 4, Vin = "YS2R4X20005388011", RegistrationNumber = "JKL012", Customer = _customersList.ElementAt(1) },
+                new Vehicle() { CustomerId = 1, Id = 5, Vin = "YS2R4X20005387949", RegistrationNumber = "MNO345", Customer = _customersList.ElementAt(1) },
+                new Vehicle() { CustomerId = 1, Id = 6, Vin = "YS2R4X20005387765", RegistrationNumber = "PQR678", Customer = _customersList.ElementAt(2) },
+                new Vehicle() { CustomerId = 1, Id = 7, Vin = "YS2R4X20005387055", RegistrationNumber = "STU901", Customer = _customersList.ElementAt(2) },
             };
         }
+        private void InitializeAutoMapper()
+        {
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<Vehicle, VehicleDto>()
+                    .ForMember(v => v.Customer, cfg => cfg.MapFrom(v => v.Customer.Name))
+                    .ForMember(v => v.IsConnected, cfg => cfg.MapFrom(v => v.LastUpdatedStatus.HasValue && ((v.LastUpdatedStatus - DateTime.UtcNow).Value.Seconds < 60)));
 
+                config.CreateMap<Customer, CustomerDto>();
+            });
+        }
         #endregion Methods
     }
 }
